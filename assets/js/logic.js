@@ -56,8 +56,13 @@ var game = {
         } else {
             game.timer -= game.wrongPenalty;
         }
+        if (game.questionBook.quizComplete) {
+            game.timer = 0;
+        } else {
+            renderQuestion(game.questionBook.activeQuestion);
+        }
         game.paused = false
-        renderQuestion(game.questionBook.activeQuestion);
+        
     },
     score() {
         return game.questionBook.score;

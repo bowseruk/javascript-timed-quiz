@@ -1,3 +1,14 @@
+// Questions in the form of a 2d array. These will be read into the questionBook on page start up.
+// The first item in the nested array is the question, then the correct answer, then the topic, and then an array of incorrect answers. This can be any length, as the code is dynamic. 
+let questionsList = [
+    ["How do you put the elements of an array in order?", ".sort()", "Arrays", [".arrange()", ".order()", ".place()"]],
+    ["Which of these is the quick form for to the power of?", "**", "Math", ["^", "e"]],
+    ["Javascript has classes?", "True", "Classes", ["False"]],
+    ["What function rounds down a number?", "Math.floor()", "Math", ["Math.roundDown()","Math.round()","math.round()","math.floor()"]],
+    ["What function creates a random number between 0 - 1?", "Math.random()", "Math", ["Math.surprise()","Math.rand()"]],
+    ["Which function in a class is called when a class object is initiated?", "constructor()", "Classes", ["new()", "make()", "__init__()", "class()"]],
+]
+
 // Shuffle an array using most accepted answer on Stack Overflow
 function shuffle(array) {
     let currentIndex = array.length, randomIndex;
@@ -32,17 +43,22 @@ class Question {
         // Possible answers has the wrong and the right answers
         this._possibleAnswers = this._incorrectAnswers.slice();
         this._possibleAnswers.push(this._correctAnswer);
+        this.shuffleAnswers()
+        };
+    // This allows the question to be answered. You input the index, and it returns true if it matches the correct answer, else it returns false.
+    answerQuestion(int) {
+        if (int === this._correctIndex) {
+            this.shuffleAnswers()
+            return true
+        }
+        this.shuffleAnswers()
+        return false;
+    }
+    shuffleAnswers() {
         // The possible answers are shuffled
         this._possibleAnswers = shuffle(this._possibleAnswers);
         // The correct index is stored for the logic
         this._correctIndex = this._possibleAnswers.indexOf(this._correctAnswer);
-    };
-    // This allows the question to be answered. You input the index, and it returns true if it matches the correct answer, else it returns false.
-    answerQuestion(int) {
-        if (int === this._correctIndex) {
-            return true
-        }
-        return false;
     }
     get answers() {
         return this._possibleAnswers;
@@ -62,6 +78,7 @@ class QuestionBook {
         this._topicAnswered = [];
         this._score = [];
         this._questions = shuffle(this._questions);
+        this._questionsComplete = false;
     }
     addQuestion(question) {
         let question_added = false;
@@ -101,22 +118,16 @@ class QuestionBook {
             this._index++;
         } else {
             this._index = 0;
+            this._questions = shuffle(this._questions);
+            this._questionsComplete = true;
         }
     }
-    /**
-     * @param {number} int
-     */
-    set index(int) {
-        if ((int >= 0) && (int < this._questions.length)) {
-            this._index = int
-            return true
-        }
-        return false
+    shuffleQuestions(){
+        this._questions = shuffle(this._questions);
     }
     get activeQuestion() {
         return this._questions[this._index];
     }
-
     get question() {
         return this.activeQuestion.question;
     }
@@ -126,12 +137,15 @@ class QuestionBook {
     get score() {
         return this._score.reduce((sum, a) => sum + a, 0);
     }
+    get quizComplete() {
+        return this._questionsComplete;
+    }
 }
 
 // This has to loaded up for the game object to use
 var questionBook = new QuestionBook();
 
-let question1 = new Question("Who has completed the exercise?", "Adam", "General", ["Anyone else"]);
-let question2 = new Question("Who has completed the exercise?", "Adam", "General", ["Anyone else", "Help", "Why am I doing this quiz?"]);
-let question3 = new Question("This is a test!!!", "Right", "Test", ["Wrong"]);
-questionBook.addQuestion(question1, question2, question3);
+questionsList.forEach((e) => {
+    let loopQuestion = new Question(e[0],e[1],e[2],e[3]);
+    questionBook.addQuestion(loopQuestion);
+})
