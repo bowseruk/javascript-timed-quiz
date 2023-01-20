@@ -1,37 +1,43 @@
-// Shuffle an array
+// Shuffle an array using most accepted answer on Stack Overflow
 function shuffle(array) {
-    let currentIndex = array.length,  randomIndex;
-  
+    let currentIndex = array.length, randomIndex;
     // While there remain elements to shuffle.
     while (currentIndex != 0) {
-  
-      // Pick a remaining element.
-      randomIndex = Math.floor(Math.random() * currentIndex);
-      currentIndex--;
-  
-      // And swap it with the current element.
-      [array[currentIndex], array[randomIndex]] = [
-        array[randomIndex], array[currentIndex]];
-    }
-  
-    return array;
-  }
 
-// Question class
-class Question{
+        // Pick a remaining element.
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex--;
+
+        // And swap it with the current element.
+        [array[currentIndex], array[randomIndex]] = [
+            array[randomIndex], array[currentIndex]];
+    }
+    // Return the shuffled array
+    return array;
+}
+
+// Question class - This is what the questions are loaded into
+class Question {
+    // Constructor takes a question as a string, correct answer as a string, topic as a string and incorrect answers as a list of strings
     constructor(question, correctAnswer, topic, incorrectAnswers) {
+        // Set the class variables
         this._question = question;
         this._correctAnswer = correctAnswer;
         this._questionTopic = topic;
         this._incorrectAnswers = [];
-        for (let i=0; i < incorrectAnswers.length; i++) {
+        // Loop through the incorrect answers in a loop, allows for error checking on each one.
+        for (let i = 0; i < incorrectAnswers.length; i++) {
             this._incorrectAnswers.push(incorrectAnswers[i]);
         }
+        // Possible answers has the wrong and the right answers
         this._possibleAnswers = this._incorrectAnswers.slice();
         this._possibleAnswers.push(this._correctAnswer);
+        // The possible answers are shuffled
         this._possibleAnswers = shuffle(this._possibleAnswers);
+        // The correct index is stored for the logic
         this._correctIndex = this._possibleAnswers.indexOf(this._correctAnswer);
     };
+    // This allows the question to be answered. You input the index, and it returns true if it matches the correct answer, else it returns false.
     answerQuestion(int) {
         if (int === this._correctIndex) {
             return true
@@ -49,7 +55,7 @@ class Question{
     }
 }
 
-class QuestionBook{
+class QuestionBook {
     constructor() {
         this._index = 0;
         this._questions = [];
@@ -59,9 +65,9 @@ class QuestionBook{
     }
     addQuestion(question) {
         let question_added = false;
-        for (let i=0; i < arguments.length; i++) {
+        for (let i = 0; i < arguments.length; i++) {
             // Check correct type has been passed
-            if (! arguments[i] instanceof Question) {
+            if (!arguments[i] instanceof Question) {
                 console.log("Incorrect format of question passed.");
                 continue;
             }
@@ -125,6 +131,6 @@ class QuestionBook{
 var questionBook = new QuestionBook();
 
 let question1 = new Question("Who has completed the exercise?", "Adam", "General", ["Anyone else"]);
-let question2= new Question("Who has completed the exercise?", "Adam", "General", ["Anyone else", "Help", "Why am I doing this quiz?"]);
+let question2 = new Question("Who has completed the exercise?", "Adam", "General", ["Anyone else", "Help", "Why am I doing this quiz?"]);
 let question3 = new Question("This is a test!!!", "Right", "Test", ["Wrong"]);
 questionBook.addQuestion(question1, question2, question3);
