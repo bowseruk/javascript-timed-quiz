@@ -128,6 +128,7 @@ class QuestionBook {
     }
 }
 
+// This has to loaded up for the game object to use
 var questionBook = new QuestionBook();
 
 let question1 = new Question("Who has completed the exercise?", "Adam", "General", ["Anyone else"]);
