@@ -73,6 +73,7 @@ class Question {
 
 class QuestionBook {
     constructor() {
+        // This points to the current question
         this._index = 0;
         this._questions = [];
         this._topicAnswered = [];
@@ -98,12 +99,17 @@ class QuestionBook {
         }
         return question_added;
     }
+    // This checks if the correct answer has been given and moves to the next question
     answerQuestion(int) {
+        // Checks a question exists
         if (this._questions.length === 0) {
+            console.log("No questions have been loaded, but an answer given.")
             return false;
         }
+        // set correct to false and push the topic to the topicAnswered array
         let correct = false
         this._topicAnswered.push(this.activeQuestion.questionTopic);
+        // This checks the answer is correct using the method on the Question class - pushes one if its correct, else zero if incorrect.
         if (this.activeQuestion.answerQuestion(int)) {
             this._score.push(1);
             correct = true
@@ -113,18 +119,24 @@ class QuestionBook {
         this.nextQuestion();
         return correct;
     }
+    // Move to the next question - add as callable function incase I implement a skip button
     nextQuestion() {
         if ((this._index + 1) < this._questions.length) {
+            // Move to the next question
             this._index++;
         } else {
-            this._index = 0;
+            // Shuffle the questions when it gets to the end and start at the beginning again
             this._questions = shuffle(this._questions);
             this._questionsComplete = true;
         }
     }
+    // Shuffle the order of the questions
     shuffleQuestions(){
         this._questions = shuffle(this._questions);
+        // Reset the index on shuffle
+        this._index = 0; 
     }
+    // Getters to allow logic before giving private variables if required later
     get activeQuestion() {
         return this._questions[this._index];
     }
@@ -144,7 +156,7 @@ class QuestionBook {
 
 // This has to loaded up for the game object to use
 var questionBook = new QuestionBook();
-
+// This loads the 2d array into the question book
 questionsList.forEach((e) => {
     let loopQuestion = new Question(e[0],e[1],e[2],e[3]);
     questionBook.addQuestion(loopQuestion);
