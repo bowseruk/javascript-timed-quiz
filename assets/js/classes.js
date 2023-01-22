@@ -370,6 +370,8 @@ class View {
         this._feedbackElement = feedbackElement;
         this._questionTitleElement = questionTitleElement;
         this._choiceElement = choiceElement;
+        this._rightAudio = new Audio('assets/sfx/correct.wav');
+        this._wrongAudio = new Audio('assets/sfx/incorrect.wav');
     };
     // This checks the number is valid
     validate_number(intValue, minValue, maxValue, defaultValue) {
@@ -456,7 +458,13 @@ class Controller {
         };
     };
     answerQuestion(int) {
-        this._model.answerQuestion(int);
+        if (this._model.answerQuestion(int)) {
+            this._view.feedback = null;
+            this._view._rightAudio.play();
+        } else {
+            this._view.feedback = "Incorrect Answer";
+            this._view._wrongAudio.play();
+        }
         this.renderQuestion();
     };
     // This updates the timer and checks the correct page is set
@@ -476,6 +484,7 @@ class Controller {
             // Stop the function if the timer is at or below zero
             if (this.activeMode === 2) {
                 // Stops execution of action at set interval
+                this.feedback = null;
                 this.renderDisplay();
                 clearInterval(this.timerInterval);
                 return
