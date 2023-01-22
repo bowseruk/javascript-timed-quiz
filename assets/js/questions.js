@@ -69,6 +69,9 @@ class Question {
     get questionTopic() {
         return this._questionTopic;
     }
+    get numberOfAnswers() {
+        return this._possibleAnswers.length
+    }
 }
 
 class QuestionBook {
@@ -135,6 +138,7 @@ class QuestionBook {
         this._questions = shuffle(this._questions);
         // Reset the index on shuffle
         this._index = 0; 
+        this.quizComplete = false;
     }
     // Getters to allow logic before giving private variables if required later
     get activeQuestion() {
@@ -152,11 +156,17 @@ class QuestionBook {
     get quizComplete() {
         return this._questionsComplete;
     }
+    get numberOfQuestions() {
+        return this._questions.length
+    }
+    get numberOfAnswers() {
+        return this.activeQuestion.answers.length
+    }
 }
 
 // This has to loaded up for the game object to use
 var questionBook = new QuestionBook();
-// This loads the 2d array into the question book
+// This loads all the questions into memory
 questionsList.forEach((e) => {
     let loopQuestion = new Question(e[0],e[1],e[2],e[3]);
     questionBook.addQuestion(loopQuestion);
