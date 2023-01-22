@@ -85,6 +85,7 @@ class QuestionBook {
         this._score = [];
         this._questions = this.shuffle(this._questions);
         this._questionsComplete = false;
+        this._maximumQuestions = this.numberOfQuestions;
     };
     //shuffles an array
     shuffle(array) {
@@ -118,6 +119,7 @@ class QuestionBook {
             question_added = true;
         }
         if (question_added) {
+            this._maximumQuestions = this.numberOfQuestions;
             this._questions = this.shuffle(this._questions);
         }
         return question_added;
@@ -144,12 +146,11 @@ class QuestionBook {
     }
     // Move to the next question - add as callable function incase I implement a skip button
     nextQuestion() {
-        if ((this._index + 1) < this._questions.length) {
+        if ((this._index + 1) < this._maximumQuestions) {
             // Move to the next question
             this._index++;
         } else {
-            // Shuffle the questions when it gets to the end and start at the beginning again
-            this._questions = this.shuffle(this._questions);
+            // Set quiz complete on finishing
             this._questionsComplete = true;
         }
     }
@@ -159,6 +160,7 @@ class QuestionBook {
         // Reset the index on shuffle
         this._index = 0;
         this.quizComplete = false;
+        this._score = [];
     }
     // Getters to allow logic before giving private variables if required later
     get activeQuestion() {
