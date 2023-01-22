@@ -1,22 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Settings</title>
 
-    <link rel="stylesheet" href="./assets/css/styles.css" />
-  </head>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Settings</title>
 
-  <body>
-    <div class="wrapper">
-      <h1>Settings</h1>
-      <ol id="options"></ol>
+  <link rel="stylesheet" href="./assets/css/styles.css" />
+</head>
 
-      <a href="index.html"><button>Go Back</button></a>
-      <button id="clear">Reset Settings</button>
-    </div>
-    <script src="./assets/js/settings.js"></script>
-  </body>
+<body>
+  <div class="wrapper">
+    <h1>Settings</h1>
+    <ol id="options">
+      <li>
+        <h2>Quiz</h2>
+        <p>This slider selects which Quiz to load.</p>
+        <input type="range" min="0" max="1" value="0" class="slider" id="quizRange" disabled>
+        <p id="quiz">The Javascript quiz has been selected.</p>
+      </li>
+      <li>
+        <h2>Maximum Questions</h2>
+        <p>This slider selects how many questions can be chosen before the Quiz ends. Chosing zero (the first part of the slider) chooses for all questions to be given.</p>
+        <input type="range" min="0" max="999" value="0" class="slider" id="maxRange" disabled>
+        <p id="max">All the questions will be given.</p>
+      </li>
+      <li>
+        <h2>Ticks per Second</h2>
+        <p>This slider selects how many page refreshes per second. A higher number may give smother experience, but may cause extra load.</p>
+        <input type="range" min="1" max="100" value="10" class="slider" id="tickRange" disabled>
+        <p id="tick">There are 10 ticks per second.</p>
+      </li>
+      <li>
+        <h2>Second per Question</h2>
+        <p>This slider selects how many seconds the timer has per loaded question.</p>
+        <input type="range" min="0" max="100" value="5" class="slider" id="secondsPerQuestionRange" disabled>
+        <p id="secondsPerQuestion">There are 5 seconds per question.</p>
+      </li>
+      <li>
+        <h2>Bonus in Second per Correct Question</h2>
+        <p>This slider selects how many bonus seconds you get for a right answer.</p>
+        <input type="range" min="0" max="100" value="50" class="slider" id="bonusSecondsRange" disabled>
+        <p id="bonusSeconds">There are 0 bonus seconds per correct answer.</p>
+      </li>
+      <li>
+        <h2>Penalty in Second per Incorrect Question</h2>
+        <p>This slider selects how many penalty seconds you lose for a wrong answer.</p>
+        <input type="range" min="2" max="100" value="50" class="slider" id="penaltySecondsRange" disabled>
+        <p id="penaltySeconds">There are 2 bonus seconds per correct answer.</p>
+      </li>
+      <li>
+        <h2>Point per Remaing Second</h2>
+        <p>This slider selects how many points you get per second remaining at the end of the quiz.</p>
+        <input type="range" min="0" max="5"  value="0" step="0.1" class="slider" id="multiplierRange"  disabled>
+        <p id="multiplier">There is a 0 multiplier to remaining seconds applied to the score.</p>
+      </li>
+    </ol>
+    <a href="index.html"><button>Go Back</button></a>
+    <button id="clear">Reset Settings</button>
+  </div>
+  <script src="./assets/js/settings.js"></script>
+</body>
+
 </html>

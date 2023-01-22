@@ -1,0 +1,62 @@
+{
+    "Javascript": [
+        {
+            "question": "How do you put the elements of an array in order?",
+            "correctAnswer": ".sort()",
+            "topic": "Arrays",
+            "incorrectAnswers": [
+                ".arrange()",
+                ".order()",
+                ".place()"
+            ]
+        },
+        {
+            "question": "Which of these is the quick form for to the power of?",
+            "correctAnswer": "**",
+            "topic": "Math",
+            "incorrectAnswers": [
+                "^",
+                "e"
+            ]
+        },
+        {
+            "question": "Javascript has classes?",
+            "correctAnswer": "True",
+            "topic": "Classes",
+            "incorrectAnswers": [
+                "False"
+            ]
+        },
+        {
+            "question": "What function rounds down a number?",
+            "correctAnswer": "Math.floor()",
+            "topic": "Math",
+            "incorrectAnswers": [
+                "Math.roundDown()",
+                "Math.round()",
+                "math.round()",
+                "math.floor()"
+            ]
+        },
+        {
+            "question": "What function creates a random number between 0 - 1?",
+            "correctAnswer": "Math.random()",
+            "topic": "Math",
+            "incorrectAnswers": [
+                "Math.surprise()",
+                "Math.rand()"
+            ]
+        },
+        {
+            "question": "Which function in a class is called when a class object is initiated?",
+            "correctAnswer": "constructor()",
+            "topic": "Classes",
+            "incorrectAnswers": [
+                "new()",
+                "make()",
+                "__init__()",
+                "class()"
+            ]
+        }
+    ]
+}
