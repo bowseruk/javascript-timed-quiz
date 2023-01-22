@@ -361,7 +361,7 @@ class Model {
 // This class controls what is shown on the page
 class View {
     // The constructor mostly takes in elements on the page to control
-    constructor(startElement, questionElement, endElement, scoreElement, timerElement, feedbackElement, questionTitleElement, choiceElement) {
+    constructor(startElement, questionElement, endElement, scoreElement, timerElement, feedbackElement, questionTitleElement, choiceElement, faviconElement) {
         // Start as the HTML page is
         this._activeSection = 0;
         this._sections = [startElement, questionElement, endElement];
@@ -372,6 +372,9 @@ class View {
         this._choiceElement = choiceElement;
         this._rightAudio = new Audio('assets/sfx/correct.wav');
         this._wrongAudio = new Audio('assets/sfx/incorrect.wav');
+        this._favicons = ["assets/images/tick.ico", "assets/images/cross.ico"]
+        this._activeFavicon = 0;
+        this._faviconElement = faviconElement;
     };
     // This checks the number is valid
     validate_number(intValue, minValue, maxValue, defaultValue) {
@@ -425,6 +428,10 @@ class View {
             this._questionTitleElement.innerText = question;
         };
     };
+    set favicon(int) {
+        this._faviconElement.setAttribute("href", this._favicons[this.validate_number(int, 0, this._favicons.length, 0)]);
+
+    }
     // Adds an answer box to the current question - pass in the function you want the button to perform
     addAnswer(answer, index) {
         let answerButton = document.createElement("button");
@@ -459,11 +466,14 @@ class Controller {
     };
     answerQuestion(int) {
         if (this._model.answerQuestion(int)) {
-            this._view.feedback = null;
+            this._view.feedback = "Correct";
             this._view._rightAudio.play();
+            this._view.favicon = 0;
+
         } else {
-            this._view.feedback = "Incorrect Answer";
+            this._view.feedback = "Wrong";
             this._view._wrongAudio.play();
+            this._view.favicon = 1;
         }
         this.renderQuestion();
     };
@@ -578,7 +588,7 @@ questionsList.forEach((e) => {
 // Start the model
 game = new Model(questionBook, 10, 5, 2, 0, 0);
 
-page = new View(document.getElementById("start-screen"), document.getElementById("questions"), document.getElementById("end-screen"), document.getElementById("final-score"), document.getElementById("time"), document.getElementById("feedback"), document.getElementById("question-title"), document.getElementById("choices"));
+page = new View(document.getElementById("start-screen"), document.getElementById("questions"), document.getElementById("end-screen"), document.getElementById("final-score"), document.getElementById("time"), document.getElementById("feedback"), document.getElementById("question-title"), document.getElementById("choices"), document.getElementById("favicon"));
 
 controller = new Controller(game, page, document.getElementById("initials"));
 
