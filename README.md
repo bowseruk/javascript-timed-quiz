@@ -1,4 +1,4 @@
-# Bootcamp Project 6 - Javascript Timed Quiz
+# Bootcamp Challenge 6 - Javascript Timed Quiz
 
 ## Description 
 
